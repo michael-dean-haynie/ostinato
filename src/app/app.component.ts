@@ -6,6 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  /**
+   * NOTES
+   * 
+   * Seems like it would be useful to have a base model for reminders that handles all the start/stop/update stuff.
+   */
+
+
+
+
   simpleInterval = null;
   simpleIntervalEnabled = true;
   simpleIntervalMessage = 'Simple Interval Reminder';
