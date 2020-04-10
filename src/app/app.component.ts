@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FixedPeriodRepeatingReminder } from './reminders/fixed-period-repeating-reminder';
 
 @Component({
   selector: 'app-root',
@@ -6,22 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  /**
-   * NOTES
-   * 
-   * Seems like it would be useful to have a base model for reminders that handles all the start/stop/update stuff.
-   */
 
-
-
-
+  // SimpleInterval
   simpleInterval = null;
   simpleIntervalEnabled = true;
   simpleIntervalMessage = 'Simple Interval Reminder';
   simpleIntervalSeconds = 5;
 
+  // FixedPeriodRepeatingReminder
+  fixedPeriodRepeatingReminder: FixedPeriodRepeatingReminder = new FixedPeriodRepeatingReminder('Fixed Period Repeating Reminder', 3);
+
   ngOnInit() {
-    this.simpleIntervalReminder(this.simpleIntervalEnabled);
+    // this.simpleIntervalReminder(this.simpleIntervalEnabled);
   }
 
   simpleIntervalReminder(enabled: boolean): void {
@@ -31,6 +28,14 @@ export class AppComponent implements OnInit {
     }
     if (enabled) {
       this.simpleInterval = setInterval(() => { console.log(this.simpleIntervalMessage); }, this.simpleIntervalSeconds * 1000);
+    }
+  }
+
+  toggleFixedPeriodRepeatingReminder(): void {
+    if (this.fixedPeriodRepeatingReminder.isActive()) {
+      this.fixedPeriodRepeatingReminder.deactivate();
+    } else {
+      this.fixedPeriodRepeatingReminder.activate();
     }
   }
 }

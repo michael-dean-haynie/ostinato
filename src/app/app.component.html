@@ -1,6 +1,7 @@
 <router-outlet></router-outlet>
 <form #myForm="ngForm">
-  <p>
+  <!-- Simple Interval Reminder -->
+  <!-- <p>
     Play this message:
     <input type="text" [(ngModel)]="simpleIntervalMessage" name="simpleIntervalMessage">
     every
@@ -8,5 +9,12 @@
     seconds.
     <button type="button"
       (click)="simpleIntervalReminder(!simpleIntervalEnabled)">{{simpleIntervalEnabled ? 'Enabled' : 'Disabled'}}</button>
+  </p> -->
+
+  <p>
+    Fixed Period Repeating Reminder
+    <button type="button" (click)="toggleFixedPeriodRepeatingReminder()">
+      {{fixedPeriodRepeatingReminder.isActive() ? "Deactivate" : "Activate"}}
+    </button>
   </p>
 </form>
