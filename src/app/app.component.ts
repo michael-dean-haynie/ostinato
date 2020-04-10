@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FixedPeriodRepeatingReminder } from './reminders/fixed-period-repeating-reminder';
+import { RepeatingReminder } from './reminders/repeating-reminder';
 
 @Component({
   selector: 'app-root',
@@ -8,34 +9,28 @@ import { FixedPeriodRepeatingReminder } from './reminders/fixed-period-repeating
 })
 export class AppComponent implements OnInit {
 
-  // SimpleInterval
-  simpleInterval = null;
-  simpleIntervalEnabled = true;
-  simpleIntervalMessage = 'Simple Interval Reminder';
-  simpleIntervalSeconds = 5;
+  // Reminder List
+  reminders: RepeatingReminder[] = [];
 
-  // FixedPeriodRepeatingReminder
-  fixedPeriodRepeatingReminder: FixedPeriodRepeatingReminder = new FixedPeriodRepeatingReminder('Fixed Period Repeating Reminder', 3);
+  // Create Reminder
+  message = 'Hey do that thing!';
+  duration = 5;
 
   ngOnInit() {
-    // this.simpleIntervalReminder(this.simpleIntervalEnabled);
+
   }
 
-  simpleIntervalReminder(enabled: boolean): void {
-    this.simpleIntervalEnabled = enabled;
-    if (this.simpleInterval != null) {
-      clearInterval(this.simpleInterval);
-    }
-    if (enabled) {
-      this.simpleInterval = setInterval(() => { console.log(this.simpleIntervalMessage); }, this.simpleIntervalSeconds * 1000);
-    }
+
+
+  createNewReminder(): void {
+    this.reminders.push(new FixedPeriodRepeatingReminder(this.message, this.duration));
   }
 
-  toggleFixedPeriodRepeatingReminder(): void {
-    if (this.fixedPeriodRepeatingReminder.isActive()) {
-      this.fixedPeriodRepeatingReminder.deactivate();
+  toggleActivation(reminder: RepeatingReminder): void {
+    if (reminder.isActive()) {
+      reminder.deactivate();
     } else {
-      this.fixedPeriodRepeatingReminder.activate();
+      reminder.activate();
     }
   }
 }

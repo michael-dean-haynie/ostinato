@@ -26,6 +26,7 @@ export abstract class RepeatingReminder {
 
   abstract doTheThing(): void;
   abstract stopDoingTheThing(): void;
+  abstract descriptionOfRepeatBehavior(): string;
 }
 
   // can probable put "from" and "to" fixed dates here

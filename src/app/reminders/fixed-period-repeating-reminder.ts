@@ -18,4 +18,8 @@ export class FixedPeriodRepeatingReminder extends RepeatingReminder {
   stopDoingTheThing(): void {
     window.clearInterval(this.intervalId);
   }
+
+  descriptionOfRepeatBehavior(): string {
+    return `every ${this.periodDuration} second${this.periodDuration === 1 ? '' : 's'}`;
+  }
 }

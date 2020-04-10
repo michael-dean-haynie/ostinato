@@ -1,20 +1,44 @@
 <router-outlet></router-outlet>
-<form #myForm="ngForm">
-  <!-- Simple Interval Reminder -->
-  <!-- <p>
-    Play this message:
-    <input type="text" [(ngModel)]="simpleIntervalMessage" name="simpleIntervalMessage">
-    every
-    <input type="number" [(ngModel)]="simpleIntervalSeconds" name="simpleIntervalSeconds">
-    seconds.
-    <button type="button"
-      (click)="simpleIntervalReminder(!simpleIntervalEnabled)">{{simpleIntervalEnabled ? 'Enabled' : 'Disabled'}}</button>
-  </p> -->
 
-  <p>
-    Fixed Period Repeating Reminder
-    <button type="button" (click)="toggleFixedPeriodRepeatingReminder()">
-      {{fixedPeriodRepeatingReminder.isActive() ? "Deactivate" : "Activate"}}
+<!-- Simple Interval Reminder -->
+<!-- <p>
+  Play this message:
+  <input type="text" [(ngModel)]="simpleIntervalMessage" name="simpleIntervalMessage">
+  every
+  <input type="number" [(ngModel)]="simpleIntervalSeconds" name="simpleIntervalSeconds">
+  seconds.
+  <button type="button"
+  (click)="simpleIntervalReminder(!simpleIntervalEnabled)">{{simpleIntervalEnabled ? 'Enabled' : 'Disabled'}}</button>
+</p> -->
+
+
+<!-- Fixed Period Repeating Reminder -->
+<!-- <p>
+  Fixed Period Repeating Reminder
+  <button type="button" (click)="toggleFixedPeriodRepeatingReminder()">
+    {{fixedPeriodRepeatingReminder.isActive() ? "Deactivate" : "Activate"}}
+  </button>
+</p> -->
+
+<!-- Reminder List -->
+<h1>Reminders</h1>
+<ng-container *ngFor="let reminder of reminders">
+  <div>
+    "{{reminder.message}}" every {{reminder.descriptionOfRepeatBehavior()}}
+    <button type="button" (click)="toggleActivation(reminder)">
+      {{reminder.isActive() ? "Deactivate" : "Activate"}}
     </button>
-  </p>
+  </div>
+</ng-container>
+<ng-container *ngIf="!reminders.length">
+  None created yet :/
+</ng-container>
+
+
+
+<form #createReminderForm="ngForm">
+  <h1>Create a new Repeating Reminder:</h1>
+  <span>Message: </span><input type="text" name="message" [(ngModel)]="message">
+  <span>Repeat every </span><input type="number" name="duration" [(ngModel)]="duration">
+  <button type="button" (click)="createNewReminder()">Create</button>
 </form>
