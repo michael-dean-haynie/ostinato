@@ -1,0 +1,27 @@
+$header-height: 64px;
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: $header-height;
+
+  .app-header__title {
+    padding-right: 16px;
+  }
+}
+
+.content {
+  position:absolute;
+  top: $header-height;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  overflow-y:auto;
+
+  .content-header__text {
+    font-weight: 300;
+  }
+}
