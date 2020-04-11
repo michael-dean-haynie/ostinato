@@ -1,7 +1,7 @@
 export abstract class RepeatingReminder {
   protected activated = false;
 
-  protected consoleNotification = false;
+  protected consoleNotification = true;
   protected visualNotification = true;
   protected audioNotification = false;
 
@@ -22,22 +22,22 @@ export abstract class RepeatingReminder {
   activate(): void {
     // TODO: maybe throw exception or warning if already activated
     this.activated = true;
-    this.doTheThing();
+    this.startTimeout();
 
   }
 
   deactivate(): void {
     // TODO: maybe throw exception or warning if already deactivated
     this.activated = false;
-    this.stopDoingTheThing();
+    this.clearTimeout();
   }
 
   isActive(): boolean {
     return this.activated;
   }
 
-  protected abstract doTheThing(): void;
-  protected abstract stopDoingTheThing(): void;
+  protected abstract startTimeout(): void;
+  protected abstract clearTimeout(): void;
 
   abstract descriptionOfRepeatBehavior(): string;
 
