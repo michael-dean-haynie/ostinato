@@ -24,7 +24,7 @@
 <h1>Reminders</h1>
 <ng-container *ngFor="let reminder of reminders">
   <div>
-    "{{reminder.message}}" every {{reminder.descriptionOfRepeatBehavior()}}
+    "{{reminder.message}}" {{reminder.descriptionOfRepeatBehavior()}}
     <button type="button" (click)="toggleActivation(reminder)">
       {{reminder.isActive() ? "Deactivate" : "Activate"}}
     </button>
@@ -39,6 +39,6 @@
 <form #createReminderForm="ngForm">
   <h1>Create a new Repeating Reminder:</h1>
   <span>Message: </span><input type="text" name="message" [(ngModel)]="message">
-  <span>Repeat every </span><input type="number" name="duration" [(ngModel)]="duration">
+  <span>Repeat every </span><input type="number" name="duration" [(ngModel)]="duration"><span>seconds.</span>
   <button type="button" (click)="createNewReminder()">Create</button>
 </form>

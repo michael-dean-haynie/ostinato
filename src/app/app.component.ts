@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FixedPeriodRepeatingReminder } from './reminders/fixed-period-repeating-reminder';
+import { Reminder } from './reminders/reminder';
 import { RepeatingReminder } from './reminders/repeating-reminder';
 
 @Component({
@@ -11,7 +11,7 @@ import { RepeatingReminder } from './reminders/repeating-reminder';
 export class AppComponent implements OnInit {
 
   // Reminder List
-  reminders: RepeatingReminder[] = [];
+  reminders: Reminder[] = [];
 
   // Create Reminder
   message = 'Hey do that thing!';
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
 
 
   createNewReminder(): void {
-    this.reminders.push(new FixedPeriodRepeatingReminder(this.message, this.duration, this.dialogService));
+    this.reminders.push(new Reminder(this.message, this.duration, this.dialogService));
   }
 
   toggleActivation(reminder: RepeatingReminder): void {
