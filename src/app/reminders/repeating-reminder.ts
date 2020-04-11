@@ -1,10 +1,22 @@
 export abstract class RepeatingReminder {
   protected activated = false;
 
+  protected consoleNotification = false;
+  protected visualNotification = true;
+  protected audioNotification = false;
+
   constructor(public message: string) { }
 
   protected notify(): void {
-    console.log(this.message);
+    if (this.consoleNotification) {
+      this.execConsoleNotification();
+    }
+    if (this.visualNotification) {
+      this.execVisualNotification();
+    }
+    if (this.audioNotification) {
+      this.execAudioNotification();
+    }
   }
 
   activate(): void {
@@ -24,9 +36,14 @@ export abstract class RepeatingReminder {
     return this.activated;
   }
 
-  abstract doTheThing(): void;
-  abstract stopDoingTheThing(): void;
+  protected abstract doTheThing(): void;
+  protected abstract stopDoingTheThing(): void;
+
   abstract descriptionOfRepeatBehavior(): string;
+
+  protected abstract execConsoleNotification(): void;
+  protected abstract execVisualNotification(): void;
+  protected abstract execAudioNotification(): void;
 }
 
   // can probable put "from" and "to" fixed dates here

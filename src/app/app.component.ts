@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FixedPeriodRepeatingReminder } from './reminders/fixed-period-repeating-reminder';
 import { RepeatingReminder } from './reminders/repeating-reminder';
 
@@ -16,6 +17,8 @@ export class AppComponent implements OnInit {
   message = 'Hey do that thing!';
   duration = 5;
 
+  constructor(private dialogService: MatDialog) { }
+
   ngOnInit() {
 
   }
@@ -23,7 +26,7 @@ export class AppComponent implements OnInit {
 
 
   createNewReminder(): void {
-    this.reminders.push(new FixedPeriodRepeatingReminder(this.message, this.duration));
+    this.reminders.push(new FixedPeriodRepeatingReminder(this.message, this.duration, this.dialogService));
   }
 
   toggleActivation(reminder: RepeatingReminder): void {
