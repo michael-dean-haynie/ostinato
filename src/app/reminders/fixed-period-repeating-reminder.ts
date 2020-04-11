@@ -36,6 +36,9 @@ export class FixedPeriodRepeatingReminder extends RepeatingReminder {
 
   protected execVisualNotification() {
     const dialogRef = this.dialogService.open(NotifyDialogContentComponent, { data: { message: this.message } });
+    window.setTimeout(() => {
+      dialogRef.close();
+    }, 3000);
   }
 
 }
