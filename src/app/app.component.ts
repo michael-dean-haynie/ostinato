@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Reminder } from './reminders/reminder';
-import { RepeatingReminder } from './reminders/repeating-reminder';
 
 @Component({
   selector: 'app-root',
@@ -10,30 +7,10 @@ import { RepeatingReminder } from './reminders/repeating-reminder';
 })
 export class AppComponent implements OnInit {
 
-  // Reminder List
-  reminders: Reminder[] = [];
-
-  // Create Reminder
-  message = 'Hey do that thing!';
-  duration = 5;
-
-  constructor(private dialogService: MatDialog) { }
+  constructor() { }
 
   ngOnInit() {
 
   }
 
-
-
-  createNewReminder(): void {
-    this.reminders.push(new Reminder(this.message, this.duration, this.dialogService));
-  }
-
-  toggleActivation(reminder: RepeatingReminder): void {
-    if (reminder.isActive()) {
-      reminder.deactivate();
-    } else {
-      reminder.activate();
-    }
-  }
 }

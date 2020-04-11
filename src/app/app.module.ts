@@ -6,11 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotifyDialogContentComponent } from './components/notify-dialog-content.component';
+import { ProofOfConceptComponent } from './components/proof-of-concept/proof-of-concept.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProofOfConceptComponent
   ],
   imports: [
     BrowserModule,
