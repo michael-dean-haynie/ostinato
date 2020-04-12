@@ -24,4 +24,10 @@ $header-height: 64px;
   .content-header__text {
     font-weight: 300;
   }
+
+  .content-body {
+    // left-right padding to match content-header and app-header 
+    padding: 0 16px;
+
+  }
 }

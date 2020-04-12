@@ -1,1 +1,12 @@
-<p>manager works!</p>
+<h2 (click)=logit()>Create a new Reminder</h2>
+<form #createReminderForm="ngForm">
+    <mat-form-field>
+        <mat-label>Message</mat-label>
+        <input matInput placeholder="Ex. Stand up and stretch!" name="createReminderMessage"
+            [(ngModel)]="createReminderMessage">
+    </mat-form-field>
+    <br>
+    <app-duration-picker [durationInSeconds]="createReminderTimeoutDuration"
+        (durationInSecondsChange)="createReminderTimeoutDuration = $event">
+    </app-duration-picker>
+</form>
