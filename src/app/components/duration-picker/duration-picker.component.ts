@@ -27,7 +27,7 @@ export class DurationPickerComponent implements OnChanges {
 
   }
 
-  private updateAndEmitDurationInSeconds(): void {
+  updateAndEmitDurationInSeconds(): void {
     let newDuration = 0;
     newDuration += this.hours * (60 * 60);
     newDuration += this.minutes * 60;

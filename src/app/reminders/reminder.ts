@@ -3,19 +3,21 @@ import { NotifyDialogContentComponent } from '../components/notify-dialog-conten
 
 export class Reminder {
   protected activated = false;
-
-  protected consoleNotification = true;
-  protected visualNotification = true;
-  protected audioNotification = false;
-
   protected timeoutId: number;
-
-  protected waitForAkng = false;
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
-  protected autoAkng = true;
-  protected autoAkngTimeoutDuration = 3;
 
-  constructor(public message: string, public timeoutDuration: number, protected dialogService: MatDialog) { }
+  message = 'Message Here!';
+  timeoutDuration = 5;
+
+  consoleNotification = true;
+  visualNotification = true;
+  audioNotification = true;
+
+  waitForAkng = false;
+  autoAkng = true;
+  autoAkngTimeoutDuration = 3;
+
+  constructor(protected dialogService: MatDialog) { }
 
   activate(): void {
     // TODO: maybe throw exception or warning if already activated
@@ -28,6 +30,14 @@ export class Reminder {
     // TODO: maybe throw exception or warning if already deactivated
     this.activated = false;
     this.clearTimeout();
+  }
+
+  toggleActivation(): void {
+    if (this.isActive()) {
+      this.deactivate();
+    } else {
+      this.activate();
+    }
   }
 
   isActive(): boolean {

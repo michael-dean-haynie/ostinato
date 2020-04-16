@@ -19,7 +19,7 @@ export class ProofOfConceptComponent {
   constructor(private dialogService: MatDialog) { }
 
   createNewReminder(): void {
-    this.reminders.push(new Reminder(this.message, this.duration, this.dialogService));
+    // this.reminders.push(new Reminder(this.message, this.duration, this.dialogService));
   }
 
   toggleActivation(reminder: Reminder): void {
