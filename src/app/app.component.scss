@@ -1,4 +1,10 @@
-$header-height: 64px;
+::ng-deep :root {
+  --header-height: 64px;
+
+  @media (max-width: 599px) {
+    --header-height: 56px;
+  }
+}
 
 .app-header {
   position: fixed;
@@ -6,7 +12,7 @@ $header-height: 64px;
   left: 0;
   right: 0;
   z-index: 2;
-  height: $header-height;
+  height: var(--header-height);
 
   .app-header__title {
     padding-right: 16px;
@@ -15,7 +21,7 @@ $header-height: 64px;
 
 .content {
   position:absolute;
-  top: $header-height;
+  top: var(--header-height);
   left:0px;
   right:0px;
   bottom:0px;
