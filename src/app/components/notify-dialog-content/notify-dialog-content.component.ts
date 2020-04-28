@@ -3,10 +3,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-notify-dialog-content',
-  template: `
-    <p>{{data.message}}<p>
-  `,
+  templateUrl: './notify-dialog-content.component.html'
 })
 export class NotifyDialogContentComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void { }
 }

@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   createReminder(): void {
     this.reminderService.addReminder(this.newReminder);
-    this.newReminder = this.reminderService.createReminder();
+    this.newReminder = this.reminderService.cloneReminder(this.newReminder);
   }
 
   deleteReminder(reminder: Reminder): void {
@@ -26,11 +26,15 @@ export class DashboardComponent implements OnInit {
   }
 
   getActiveReminders(): Reminder[] {
-    return this.reminderService.reminders.filter(reminder => reminder.isActive());
+    return this.reminderService.getActiveReminders();
   }
 
   getInactiveReminders(): Reminder[] {
-    return this.reminderService.reminders.filter(reminder => !reminder.isActive());
+    return this.reminderService.getInactiveReminders();
+  }
+
+  getRemindersAwaitingAcknowledgement(): Reminder[] {
+    return this.reminderService.getRemindersAwaitingAcknowledgement();
   }
 
 }

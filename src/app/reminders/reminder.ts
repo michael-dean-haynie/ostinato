@@ -1,8 +1,9 @@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { NotifyDialogContentComponent } from '../components/notify-dialog-content.component';
+import { NotifyDialogContentComponent } from '../components/notify-dialog-content/notify-dialog-content.component';
 
 export class Reminder {
   protected activated = false;
+  protected awaitingAcknowledgement = false;
   protected timeoutId: number;
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
@@ -44,6 +45,10 @@ export class Reminder {
     return this.activated;
   }
 
+  isAwaitingAcknowledgement(): boolean {
+    return this.awaitingAcknowledgement;
+  }
+
   descriptionOfRepeatBehavior(): string {
     return `every ${this.timeoutDuration} second${this.timeoutDuration === 1 ? '' : 's'}`;
   }
@@ -66,7 +71,9 @@ export class Reminder {
     if (!this.waitForAkng) {
       this.startTimeout();
     } else {
+      this.awaitingAcknowledgement = true;
       this.visualNotificationDialogRef.afterClosed().subscribe(() => {
+        this.awaitingAcknowledgement = false;
         this.startTimeout();
       });
     }

@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DurationPickerComponent } from './components/duration-picker/duration-picker.component';
 import { ManagerComponent } from './components/manager/manager.component';
-import { NotifyDialogContentComponent } from './components/notify-dialog-content.component';
+import { NotifyDialogContentComponent } from './components/notify-dialog-content/notify-dialog-content.component';
 import { ProofOfConceptComponent } from './components/proof-of-concept/proof-of-concept.component';
 
 
@@ -23,7 +23,8 @@ import { ProofOfConceptComponent } from './components/proof-of-concept/proof-of-
     ProofOfConceptComponent,
     DashboardComponent,
     ManagerComponent,
-    DurationPickerComponent
+    DurationPickerComponent,
+    NotifyDialogContentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,12 @@
+<h2>Unacknowledged Reminders</h2>
+<ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
+    <div>
+        <span>"{{reminder.message}}"</span>
+        &nbsp;
+        <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
+    </div>
+</ng-container>
+
 <h2>Active Reminders</h2>
 <ng-container *ngFor="let reminder of getActiveReminders()">
     <div>
