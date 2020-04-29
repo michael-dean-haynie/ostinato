@@ -1,5 +1,6 @@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotifyDialogContentComponent } from '../components/notify-dialog-content/notify-dialog-content.component';
+import { NotifyDialogResult } from '../models/enums/notify-dialog-result.enum';
 
 export class Reminder {
   protected activated = false;
@@ -30,6 +31,7 @@ export class Reminder {
   deactivate(): void {
     // TODO: maybe throw exception or warning if already deactivated
     this.activated = false;
+    this.awaitingAcknowledgement = false;
     this.clearTimeout();
   }
 
@@ -47,6 +49,15 @@ export class Reminder {
 
   isAwaitingAcknowledgement(): boolean {
     return this.awaitingAcknowledgement;
+  }
+
+  acknowledge(): void {
+    // TODO: Maybe throw error or warning if already false?
+    this.awaitingAcknowledgement = false;
+    // start next cycle if configured to wait for akng
+    if (this.waitForAkng) {
+      this.startTimeout();
+    }
   }
 
   descriptionOfRepeatBehavior(): string {
@@ -67,15 +78,12 @@ export class Reminder {
       this.notify();
     }
 
-    // start next cycle
-    if (!this.waitForAkng) {
-      this.startTimeout();
-    } else {
+    // flag as waiting to start next cycle, or start next cycle
+    if (this.waitForAkng) {
       this.awaitingAcknowledgement = true;
-      this.visualNotificationDialogRef.afterClosed().subscribe(() => {
-        this.awaitingAcknowledgement = false;
-        this.startTimeout();
-      });
+    }
+    else {
+      this.startTimeout();
     }
   }
 
@@ -100,10 +108,20 @@ export class Reminder {
   }
 
   protected execVisualNotification() {
+    // open dialog
     this.visualNotificationDialogRef = this.dialogService.open(NotifyDialogContentComponent, { data: { message: this.message } });
+
+    // handle dialog close event
+    this.visualNotificationDialogRef.afterClosed().subscribe((result) => {
+      if (result === NotifyDialogResult.Acknowledge) {
+        this.acknowledge();
+      }
+    });
+
+    // start auto acknowledgement timeout (if configured)
     if (this.autoAkng) {
       window.setTimeout(() => {
-        this.visualNotificationDialogRef.close();
+        this.visualNotificationDialogRef.close(NotifyDialogResult.Acknowledge);
       }, this.autoAkngTimeoutDuration * 1000);
     }
   }

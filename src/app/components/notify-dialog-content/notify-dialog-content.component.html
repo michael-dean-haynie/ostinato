@@ -3,6 +3,6 @@
     <p>{{data.message}}<p>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Minimize</button>
-    <button mat-button [mat-dialog-close]="data.message" cdkFocusInitial>Acknowledge</button>
+    <button mat-button [mat-dialog-close]="notifyDialogResult.Minimize">Minimize</button>
+    <button mat-button [mat-dialog-close]="notifyDialogResult.Acknowledge" cdkFocusInitial>Acknowledge</button>
 </div>

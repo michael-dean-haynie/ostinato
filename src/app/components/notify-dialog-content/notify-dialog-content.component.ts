@@ -1,12 +1,15 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotifyDialogResult } from 'src/app/models/enums/notify-dialog-result.enum';
 
 @Component({
   selector: 'app-notify-dialog-content',
   templateUrl: './notify-dialog-content.component.html'
 })
 export class NotifyDialogContentComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  notifyDialogResult = NotifyDialogResult;
+
+  constructor(public dialogRef: MatDialogRef<NotifyDialogContentComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void { }
 }

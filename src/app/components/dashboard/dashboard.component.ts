@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Reminder } from 'src/app/reminders/reminder';
 import { ReminderService } from 'src/app/services/reminder.service';
 
@@ -10,7 +11,7 @@ import { ReminderService } from 'src/app/services/reminder.service';
 export class DashboardComponent implements OnInit {
   newReminder: Reminder;
 
-  constructor(private reminderService: ReminderService) { }
+  constructor(private reminderService: ReminderService, private dialogService: MatDialog) { }
 
   ngOnInit(): void {
     this.newReminder = this.reminderService.createReminder();
@@ -36,5 +37,4 @@ export class DashboardComponent implements OnInit {
   getRemindersAwaitingAcknowledgement(): Reminder[] {
     return this.reminderService.getRemindersAwaitingAcknowledgement();
   }
-
 }
