@@ -60,6 +60,10 @@ export class Reminder {
     }
   }
 
+  minimize(): void {
+    this.visualNotificationDialogRef.close(NotifyDialogResult.Minimize);
+  }
+
   descriptionOfRepeatBehavior(): string {
     return `every ${this.timeoutDuration} second${this.timeoutDuration === 1 ? '' : 's'}`;
   }
@@ -108,8 +112,11 @@ export class Reminder {
   }
 
   protected execVisualNotification() {
+    // minimize (or just close) any open dialogs
+    this.dialogService.closeAll();
+
     // open dialog
-    this.visualNotificationDialogRef = this.dialogService.open(NotifyDialogContentComponent, { data: { message: this.message } });
+    this.visualNotificationDialogRef = this.dialogService.open(NotifyDialogContentComponent, { data: { reminder: this } });
 
     // handle dialog close event
     this.visualNotificationDialogRef.afterClosed().subscribe((result) => {

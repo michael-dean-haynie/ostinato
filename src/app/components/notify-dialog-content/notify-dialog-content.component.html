@@ -1,8 +1,13 @@
-<h1 mat-dialog-title>{{data.message}}</h1>
+<h1 mat-dialog-title>{{data.reminder.message}}</h1>
 <div mat-dialog-content>
-    <p>{{data.message}}<p>
+    <p>{{data.reminder.message}}<p>
 </div>
 <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="notifyDialogResult.Minimize">Minimize</button>
-    <button mat-button [mat-dialog-close]="notifyDialogResult.Acknowledge" cdkFocusInitial>Acknowledge</button>
+    <ng-container *ngIf="data.reminder.waitForAkng">
+        <button mat-button [mat-dialog-close]="notifyDialogResult.Minimize">Minimize</button>
+        <button mat-button [mat-dialog-close]="notifyDialogResult.Acknowledge" cdkFocusInitial>Acknowledge</button>
+    </ng-container>
+    <ng-container *ngIf="!data.reminder.waitForAkng">
+        <button mat-button [mat-dialog-close]>Cool beanz</button>
+    </ng-container>
 </div>

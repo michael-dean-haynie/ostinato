@@ -1,9 +1,11 @@
-<h2>Unacknowledged Reminders</h2>
+<h2>Awaiting Acknowledgement</h2>
 <ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
     <div>
         <span>"{{reminder.message}}"</span>
         &nbsp;
         <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
+        &nbsp;
+        <button mat-stroked-button color="basic" (click)="reminder.acknowledge()">Acknowledge</button>
     </div>
 </ng-container>
 
