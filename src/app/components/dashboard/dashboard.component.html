@@ -61,5 +61,11 @@
     <mat-checkbox name="autoAkng" [(ngModel)]="newReminder.autoAkng">Auto Acknowledge
     </mat-checkbox>
     <br>
+    <mat-form-field *ngIf="newReminder.autoAkng">
+        <mat-label>Auto Acknowledgement Timeout Duration</mat-label>
+        <input matInput type="number" name="autoAkngTimeoutDuration" min="1"
+            [(ngModel)]="newReminder.autoAkngTimeoutDuration">
+    </mat-form-field>
+    <br>
     <button mat-stroked-button color="primary">Create</button>
 </form>
