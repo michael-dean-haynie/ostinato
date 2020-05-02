@@ -6,6 +6,7 @@ export class Reminder {
   protected activated = false;
   protected awaitingAcknowledgement = false;
   protected timeoutId: number;
+  protected timeoutStart: number;
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
   message = 'Message Here!';
@@ -19,12 +20,18 @@ export class Reminder {
   autoAkng = true;
   autoAkngTimeoutDuration = 3;
 
+  secondsLeft = 0;
+  protected calcSecondsLeftIntervalId: number;
+
   constructor(protected dialogService: MatDialog) { }
 
   activate(): void {
     // TODO: maybe throw exception or warning if already activated
     this.activated = true;
     this.startTimeout();
+
+    // start calcSecondsLeft
+    this.calcSecondsLeftIntervalId = window.setInterval(() => { this.calcSecondsLeft(); }, 1000);
 
   }
 
@@ -33,6 +40,9 @@ export class Reminder {
     this.activated = false;
     this.awaitingAcknowledgement = false;
     this.clearTimeout();
+
+    // clear calcSecondsLeft interval
+    window.clearInterval(this.calcSecondsLeftIntervalId);
   }
 
   toggleActivation(): void {
@@ -68,7 +78,13 @@ export class Reminder {
     return `every ${this.timeoutDuration} second${this.timeoutDuration === 1 ? '' : 's'}`;
   }
 
+  protected calcSecondsLeft(): void {
+    this.secondsLeft = this.timeoutDuration - Math.ceil((Date.now() - this.timeoutStart) / 1000);
+  }
+
+
   protected startTimeout(): void {
+    this.timeoutStart = Date.now();
     this.timeoutId = window.setTimeout(() => this.onTimeout(), this.timeoutDuration * 1000);
   }
 

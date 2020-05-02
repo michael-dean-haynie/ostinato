@@ -16,6 +16,8 @@
         &nbsp;
         <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
         &nbsp;
+        <span>Next reminder in {{reminder.secondsLeft}} seconds</span>
+        &nbsp;
         <button mat-stroked-button color="basic"
             (click)="reminder.toggleActivation()">{{reminder.isActive() ? 'Deactivate' : 'Activate'}}</button>
         <button mat-stroked-button color="warn" (click)="deleteReminder(reminder)">Delete</button>
