@@ -16,8 +16,8 @@ export class Reminder {
   visualNotification = true;
   audioNotification = true;
 
-  waitForAkng = false;
-  autoAkng = true;
+  waitForAkng = true;
+  autoAkng = false;
   autoAkngTimeoutDuration = 3;
 
   secondsLeft = 0;
@@ -31,7 +31,8 @@ export class Reminder {
     this.startTimeout();
 
     // start calcSecondsLeft
-    this.calcSecondsLeftIntervalId = window.setInterval(() => { this.calcSecondsLeft(); }, 1000);
+    this.secondsLeft = this.timeoutDuration;
+    this.calcSecondsLeftIntervalId = window.setInterval(() => { this.calcSecondsLeft(); }, 10);
 
   }
 
@@ -79,7 +80,9 @@ export class Reminder {
   }
 
   protected calcSecondsLeft(): void {
-    this.secondsLeft = this.timeoutDuration - Math.ceil((Date.now() - this.timeoutStart) / 1000);
+    // plus 1 so notification pops up so seconds left starts as timeoutDuration and notification activated on 0
+    const secondsLeft = this.timeoutDuration - Math.ceil((Date.now() - this.timeoutStart) / 1000) + 1;
+    this.secondsLeft = (secondsLeft === this.secondsLeft) ? this.secondsLeft : secondsLeft;
   }
 
 
