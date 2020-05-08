@@ -18,6 +18,10 @@
         &nbsp;
         <span>Next reminder in {{reminder.secondsLeft}} seconds</span>
         &nbsp;
+        <ng-container *ngIf="reminder.hasTimedOutBefore()">
+            <span>Last reminder was {{reminder.secondsSince}} seconds ago</span>
+            &nbsp;
+        </ng-container>
         <button mat-stroked-button color="basic"
             (click)="reminder.toggleActivation()">{{reminder.isActive() ? 'Deactivate' : 'Activate'}}</button>
         <button mat-stroked-button color="warn" (click)="deleteReminder(reminder)">Delete</button>

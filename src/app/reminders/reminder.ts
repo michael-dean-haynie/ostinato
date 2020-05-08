@@ -7,6 +7,7 @@ export class Reminder {
   protected awaitingAcknowledgement = false;
   protected timeoutId: number;
   protected timeoutStart: number;
+  protected lastTimeoutEnd: number;
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
   message = 'Message Here!';
@@ -23,17 +24,15 @@ export class Reminder {
   secondsLeft = 0;
   protected calcSecondsLeftIntervalId: number;
 
+  secondsSince = 0;
+  protected calcSecondsSinceIntervalId: number;
+
   constructor(protected dialogService: MatDialog) { }
 
   activate(): void {
     // TODO: maybe throw exception or warning if already activated
     this.activated = true;
     this.startTimeout();
-
-    // start calcSecondsLeft
-    this.secondsLeft = this.timeoutDuration;
-    this.calcSecondsLeftIntervalId = window.setInterval(() => { this.calcSecondsLeft(); }, 10);
-
   }
 
   deactivate(): void {
@@ -42,8 +41,15 @@ export class Reminder {
     this.awaitingAcknowledgement = false;
     this.clearTimeout();
 
-    // clear calcSecondsLeft interval
-    window.clearInterval(this.calcSecondsLeftIntervalId);
+    // clear other things
+    this.timeoutId = null;
+    this.timeoutStart = null;
+    this.lastTimeoutEnd = null;
+    this.secondsLeft = null;
+    this.secondsSince = null;
+
+    // this is otherwise only cleared on timeout so need to clear here incase premature deactivation
+    window.clearTimeout(this.calcSecondsSinceIntervalId);
   }
 
   toggleActivation(): void {
@@ -79,23 +85,44 @@ export class Reminder {
     return `every ${this.timeoutDuration} second${this.timeoutDuration === 1 ? '' : 's'}`;
   }
 
+  hasTimedOutBefore(): boolean {
+    return !!this.lastTimeoutEnd;
+  }
+
   protected calcSecondsLeft(): void {
     // plus 1 so notification pops up so seconds left starts as timeoutDuration and notification activated on 0
     const secondsLeft = this.timeoutDuration - Math.ceil((Date.now() - this.timeoutStart) / 1000) + 1;
     this.secondsLeft = (secondsLeft === this.secondsLeft) ? this.secondsLeft : secondsLeft;
   }
 
+  protected calcSecondsSince(): void {
+    const secondsSince = Math.floor((Date.now() - this.lastTimeoutEnd) / 1000);
+    this.secondsSince = (secondsSince === this.secondsSince) ? this.secondsSince : secondsSince;
+  }
+
+
+
 
   protected startTimeout(): void {
     this.timeoutStart = Date.now();
     this.timeoutId = window.setTimeout(() => this.onTimeout(), this.timeoutDuration * 1000);
+
+    // start calcSecondsLeft
+    this.secondsLeft = this.timeoutDuration;
+    this.calcSecondsLeftIntervalId = window.setInterval(() => { this.calcSecondsLeft(); }, 10);
   }
 
   protected clearTimeout(): void {
     window.clearTimeout(this.timeoutId);
+
+    window.clearTimeout(this.calcSecondsLeftIntervalId);
+    this.secondsLeft = 0;
   }
 
   protected onTimeout(): void {
+    // clear timeout
+    this.clearTimeout();
+
     // notify
     if (this.activated) {
       this.notify();
@@ -108,6 +135,12 @@ export class Reminder {
     else {
       this.startTimeout();
     }
+
+    // start calcSecondsSince
+    window.clearTimeout(this.calcSecondsSinceIntervalId);
+    this.lastTimeoutEnd = Date.now();
+    this.secondsSince = 0;
+    this.calcSecondsSinceIntervalId = window.setInterval(() => { this.calcSecondsSince(); }, 10);
   }
 
   protected notify(): void {
