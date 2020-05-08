@@ -27,6 +27,9 @@ export class Reminder {
   secondsSince = 0;
   protected calcSecondsSinceIntervalId: number;
 
+  secondsTillAutoAkng = 0;
+  protected calcSecondsTillAutoAkngIntervalId: number;
+
   constructor(protected dialogService: MatDialog) { }
 
   activate(): void {
@@ -47,9 +50,13 @@ export class Reminder {
     this.lastTimeoutEnd = null;
     this.secondsLeft = null;
     this.secondsSince = null;
+    this.secondsTillAutoAkng = null;
 
-    // this is otherwise only cleared on timeout so need to clear here incase premature deactivation
+    // clear here in case premature deactivation
     window.clearTimeout(this.calcSecondsSinceIntervalId);
+
+    // clear here in case premature deactivation
+    window.clearInterval(this.calcSecondsTillAutoAkngIntervalId);
   }
 
   toggleActivation(): void {
@@ -71,10 +78,15 @@ export class Reminder {
   acknowledge(): void {
     // TODO: Maybe throw error or warning if already false?
     this.awaitingAcknowledgement = false;
+
     // start next cycle if configured to wait for akng
     if (this.waitForAkng) {
       this.startTimeout();
     }
+
+    // clear calcsecondsTillAutoAkngInterval
+    this.secondsTillAutoAkng = 0;
+    window.clearInterval(this.calcSecondsTillAutoAkngIntervalId);
   }
 
   minimize(): void {
@@ -100,7 +112,10 @@ export class Reminder {
     this.secondsSince = (secondsSince === this.secondsSince) ? this.secondsSince : secondsSince;
   }
 
-
+  protected calcSecondsTillAutoAkng(): void {
+    const secondsTillAutoAkng = this.autoAkngTimeoutDuration - Math.ceil((Date.now() - this.lastTimeoutEnd) / 1000) + 1;
+    this.secondsTillAutoAkng = (secondsTillAutoAkng === this.secondsTillAutoAkng) ? this.secondsTillAutoAkng : secondsTillAutoAkng;
+  }
 
 
   protected startTimeout(): void {
@@ -141,6 +156,11 @@ export class Reminder {
     this.lastTimeoutEnd = Date.now();
     this.secondsSince = 0;
     this.calcSecondsSinceIntervalId = window.setInterval(() => { this.calcSecondsSince(); }, 10);
+
+    // start calcSecondsTillAutoAkng
+    if (this.autoAkng) {
+      this.calcSecondsTillAutoAkngIntervalId = window.setInterval(() => { this.calcSecondsTillAutoAkng(); }, 10);
+    }
   }
 
   protected notify(): void {
