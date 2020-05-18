@@ -192,6 +192,9 @@ export class Reminder {
 
     // handle dialog close event
     this.visualNotificationDialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      console.log(NotifyDialogResult.Acknowledge);
+      console.log(result === NotifyDialogResult.Acknowledge);
       if (result === NotifyDialogResult.Acknowledge) {
         this.acknowledge();
       }
@@ -200,7 +203,13 @@ export class Reminder {
     // start auto acknowledgement timeout (if configured)
     if (this.autoAkng) {
       window.setTimeout(() => {
-        this.visualNotificationDialogRef.close(NotifyDialogResult.Acknowledge);
+        // check if the dialog has not yet been minimized
+        if (this.dialogService.openDialogs.some(ref => ref === this.visualNotificationDialogRef)) {
+          this.visualNotificationDialogRef.close(NotifyDialogResult.Acknowledge);
+        } else {
+          this.acknowledge();
+        }
+
       }, this.autoAkngTimeoutDuration * 1000);
     }
   }
