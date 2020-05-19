@@ -4,7 +4,17 @@
         <span>"{{reminder.message}}"</span>
         &nbsp;
         <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
-        &nbsp;
+        <br>
+        <span>Next reminder in {{reminder.secondsLeft}} seconds</span>
+        <ng-container *ngIf="reminder.hasTimedOutBefore()">
+            <br>
+            <span>Last reminder was {{reminder.secondsSince}} seconds ago</span>
+        </ng-container>
+        <ng-container *ngIf="reminder.autoAkng && reminder.secondsTillAutoAkng">
+            <br>
+            <span>Will auto acknowledge in {{reminder.secondsTillAutoAkng}} seconds</span>
+        </ng-container>
+        <br>
         <button mat-stroked-button color="basic" (click)="reminder.acknowledge()">Acknowledge</button>
     </div>
 </ng-container>
@@ -15,13 +25,17 @@
         <span>"{{reminder.message}}"</span>
         &nbsp;
         <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
-        &nbsp;
+        <br>
         <span>Next reminder in {{reminder.secondsLeft}} seconds</span>
-        &nbsp;
         <ng-container *ngIf="reminder.hasTimedOutBefore()">
+            <br>
             <span>Last reminder was {{reminder.secondsSince}} seconds ago</span>
-            &nbsp;
         </ng-container>
+        <ng-container *ngIf="reminder.autoAkng && reminder.secondsTillAutoAkng">
+            <br>
+            <span>Will auto acknowledge in {{reminder.secondsTillAutoAkng}} seconds</span>
+        </ng-container>
+        <br>
         <button mat-stroked-button color="basic"
             (click)="reminder.toggleActivation()">{{reminder.isActive() ? 'Deactivate' : 'Activate'}}</button>
         <button mat-stroked-button color="warn" (click)="deleteReminder(reminder)">Delete</button>
