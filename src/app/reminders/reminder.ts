@@ -19,7 +19,7 @@ export class Reminder {
 
   waitForAkng = true;
   autoAkng = false;
-  autoAkngTimeoutDuration = 3;
+  autoAkngTimeoutDuration = 1000;
 
   secondsLeft = 0;
   protected calcSecondsLeftIntervalId: number;

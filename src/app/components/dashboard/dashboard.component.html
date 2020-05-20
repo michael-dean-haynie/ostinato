@@ -1,41 +1,25 @@
 <h2>Awaiting Acknowledgement</h2>
-<ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
-    <!-- <div>
-        <span>"{{reminder.message}}"</span>
-        &nbsp;
-        <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
-        <br>
-        <span>Next reminder in {{reminder.secondsLeft}} seconds</span>
-        <ng-container *ngIf="reminder.hasTimedOutBefore()">
-            <br>
-            <span>Last reminder was {{reminder.secondsSince}} seconds ago</span>
-        </ng-container>
-        <ng-container *ngIf="reminder.autoAkng && reminder.secondsTillAutoAkng">
-            <br>
-            <span>Will auto acknowledge in {{reminder.secondsTillAutoAkng}} seconds</span>
-        </ng-container>
-        <br>
-        <button mat-stroked-button color="basic" (click)="reminder.acknowledge()">Acknowledge</button>
-    </div> -->
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>{{reminder.message}}</mat-card-title>
-            <mat-card-subtitle>{{reminder.descriptionOfRepeatBehavior()}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <mat-list>
-                <mat-list-item>Last Reminder was {{reminder.secondsSince}} seconds ago</mat-list-item>
-                <ng-container *ngIf="reminder.autoAkng">
-                    <!-- <mat-divider></mat-divider> -->
-                    <mat-list-item>Auto-acknowledging in {{reminder.secondsTillAutoAkng}} seconds</mat-list-item>
-                </ng-container>
-            </mat-list>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-stroked-button color="basic" (click)="reminder.acknowledge()">Acknowledge</button>
-        </mat-card-actions>
-    </mat-card>
-</ng-container>
+<div class="notification-container">
+    <ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{reminder.message}}</mat-card-title>
+                <mat-card-subtitle>
+                    <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
+                    <br>
+                    <span>last Reminder was {{reminder.secondsSince}} seconds ago</span>
+                    <ng-container *ngIf="reminder.autoAkng">
+                        <br>
+                        <span>auto-acknowledging in {{reminder.secondsTillAutoAkng}} seconds</span>
+                    </ng-container>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button mat-stroked-button color="basic" (click)="reminder.acknowledge()">Acknowledge</button>
+            </mat-card-actions>
+        </mat-card>
+    </ng-container>
+</div>
 
 <h2>Active Reminders</h2>
 <ng-container *ngFor=" let reminder of getActiveReminders()">
