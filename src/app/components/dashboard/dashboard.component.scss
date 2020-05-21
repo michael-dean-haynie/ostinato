@@ -1,11 +1,11 @@
 @import '~@angular/material/theming';
 
-.notification-container {
+.notifications {
     display: flex;
     flex-wrap: wrap;
 
     mat-card {
-        flex: auto;
+        flex: 1 1 auto;
         margin: 0.5rem 1rem 0.5rem 0;
         @include mat-elevation(8);
     }
