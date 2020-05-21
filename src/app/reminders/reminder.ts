@@ -11,7 +11,7 @@ export class Reminder {
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
   message = 'Message Here!';
-  timeoutDuration = 5;
+  timeoutDuration = 2;
 
   consoleNotification = true;
   visualNotification = true;
