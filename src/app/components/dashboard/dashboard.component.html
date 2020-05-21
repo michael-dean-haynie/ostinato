@@ -3,7 +3,7 @@
     <ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
         <mat-card>
             <mat-card-header>
-                <mat-card-title>{{reminder.message}}</mat-card-title>
+                <mat-card-title>{{reminder.name}}</mat-card-title>
                 <mat-card-subtitle>
                     <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
                     <br>
@@ -21,10 +21,10 @@
     </ng-container>
 </div>
 
-<h2>Active Reminders</h2>
+<!-- <h2>Active Reminders</h2>
 <ng-container *ngFor=" let reminder of getActiveReminders()">
     <div>
-        <span>"{{reminder.message}}"</span>
+        <span>"{{reminder.name}}"</span>
         &nbsp;
         <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
         <br>
@@ -48,7 +48,7 @@
 <h2>Inactive Reminders</h2>
 <ng-container *ngFor="let reminder of getInactiveReminders()">
     <div>
-        <span>"{{reminder.message}}"</span>
+        <span>"{{reminder.name}}"</span>
         &nbsp;
         <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
         &nbsp;
@@ -57,13 +57,13 @@
         <button mat-stroked-button color="warn" (click)="deleteReminder(reminder)">Delete</button>
 
     </div>
-</ng-container>
+</ng-container> -->
 
 <h2>Create a new Reminder</h2>
 <form #createReminderForm="ngForm" (submit)="createReminder()">
     <mat-form-field>
-        <mat-label>Message</mat-label>
-        <input matInput placeholder="Ex. Stand up and stretch!" name="message" [(ngModel)]="newReminder.message">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Ex. Stand up and stretch!" name="name" [(ngModel)]="newReminder.name">
     </mat-form-field>
     <br>
     <app-duration-picker [durationInSeconds]="newReminder.timeoutDuration"

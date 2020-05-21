@@ -13,13 +13,13 @@ export class ProofOfConceptComponent {
   reminders: Reminder[] = [];
 
   // Create Reminder
-  message = 'Hey do that thing!';
+  name = 'Hey do that thing!';
   duration = 5;
 
   constructor(private dialogService: MatDialog) { }
 
   createNewReminder(): void {
-    // this.reminders.push(new Reminder(this.message, this.duration, this.dialogService));
+    // this.reminders.push(new Reminder(this.name, this.duration, this.dialogService));
   }
 
   toggleActivation(reminder: Reminder): void {

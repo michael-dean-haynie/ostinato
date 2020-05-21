@@ -10,7 +10,7 @@ export class Reminder {
   protected lastTimeoutEnd: number;
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
-  message = 'Message Here!';
+  name = 'Nifty Reminder!';
   timeoutDuration = 2;
 
   consoleNotification = true;
@@ -176,11 +176,11 @@ export class Reminder {
   }
 
   protected execConsoleNotification() {
-    console.log(this.message);
+    console.log(this.name);
   }
 
   protected execAudioNotification() {
-    console.log(`PRETEND AUDIO: "${this.message}"`);
+    console.log(`PRETEND AUDIO: "${this.name}"`);
   }
 
   protected execVisualNotification() {

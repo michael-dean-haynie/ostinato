@@ -1,42 +1,4 @@
-<h2 (click)=logit()>Create a new Reminder</h2>
-<form #createReminderForm="ngForm" (submit)="createReminder()">
-    <mat-form-field>
-        <mat-label>Message</mat-label>
-        <input matInput placeholder="Ex. Stand up and stretch!" name="message" [(ngModel)]="newReminder.message">
-    </mat-form-field>
-    <br>
-    <app-duration-picker [durationInSeconds]="newReminder.timeoutDuration"
-        (durationInSecondsChange)="newReminder.timeoutDuration = $event">
-    </app-duration-picker>
-    <br>
-    <mat-checkbox name="visualNotification" [(ngModel)]="newReminder.visualNotification">Visual Notification
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="audioNotification" [(ngModel)]="newReminder.audioNotification">Audio Notification
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="consoleNotification" [(ngModel)]="newReminder.consoleNotification">Console Notification
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="waitForAkng" [(ngModel)]="newReminder.waitForAkng">Wait For Acknowledgement
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="autoAkng" [(ngModel)]="newReminder.autoAkng">Auto Acknowledge
-    </mat-checkbox>
-    <br>
-    <button mat-stroked-button color="primary">Create</button>
-</form>
-
-<h2>Existing Reminders</h2>
-<ng-container *ngFor="let reminder of getReminders()">
-    <div>
-        <span>"{{reminder.message}}"</span>
-        &nbsp;
-        <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
-        &nbsp;
-        <button mat-stroked-button color="basic"
-            (click)="reminder.toggleActivation()">{{reminder.isActive() ? 'Deactivate' : 'Activate'}}</button>
-        <button mat-stroked-button color="warn" (click)="deleteReminder(reminder)">Delete</button>
-
-    </div>
-</ng-container>
+<!-- 
+    Name
+    
+ -->

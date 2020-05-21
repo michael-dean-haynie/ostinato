@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>{{data.reminder.message}}</h1>
+<h1 mat-dialog-title>{{data.reminder.name}}</h1>
 <div mat-dialog-content>
-    <p>{{data.reminder.message}}<p>
+    <p>{{data.reminder.name}}<p>
             <ng-container *ngIf="data.reminder.autoAkng">
                 <p>Auto-acknowledging in {{data.reminder.secondsTillAutoAkng}} seconds.</p>
             </ng-container>

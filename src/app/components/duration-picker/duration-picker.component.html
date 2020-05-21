@@ -1,20 +1,20 @@
 <mat-form-field>
     <mat-label>Hours</mat-label>
     <!-- TODO: Force integer validation -->
-    <input type="number" step="1" min="0" matInput name="createReminderMessage" [(ngModel)]="hours"
+    <input type="number" step="1" min="0" matInput name="createReminderHours" [(ngModel)]="hours"
         (ngModelChange)="updateAndEmitDurationInSeconds()">
 </mat-form-field>
 
 <mat-form-field>
     <mat-label>Minutes</mat-label>
     <!-- TODO: Force integer validation -->
-    <input type="number" step="1" min="0" max="60" matInput name="createReminderMessage" [(ngModel)]="minutes"
+    <input type="number" step="1" min="0" max="60" matInput name="createReminderMinutes" [(ngModel)]="minutes"
         (ngModelChange)="updateAndEmitDurationInSeconds()">
 </mat-form-field>
 
 <mat-form-field>
     <mat-label>Seconds</mat-label>
     <!-- TODO: Force integer validation -->
-    <input type="number" step="1" min="0" max="60" matInput name="createReminderMessage" [(ngModel)]="seconds"
+    <input type="number" step="1" min="0" max="60" matInput name="createReminderSeconds" [(ngModel)]="seconds"
         (ngModelChange)="updateAndEmitDurationInSeconds()">
 </mat-form-field>
