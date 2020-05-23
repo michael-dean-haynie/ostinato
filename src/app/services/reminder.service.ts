@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Reminder } from '../reminders/reminder';
+import { VisualNotificationService } from './visual-notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { Reminder } from '../reminders/reminder';
 export class ReminderService {
   reminders: Reminder[] = []
 
-  constructor(private dialogService: MatDialog) {
+  constructor(private visualNotificationService: VisualNotificationService) {
     // Test data to work with
     let reminder: Reminder;
     reminder = this.createReminder();
@@ -31,7 +31,7 @@ export class ReminderService {
   }
 
   createReminder(): Reminder {
-    return new Reminder(this.dialogService);
+    return new Reminder(this.visualNotificationService);
   }
 
   cloneReminder(source: Reminder): Reminder {
