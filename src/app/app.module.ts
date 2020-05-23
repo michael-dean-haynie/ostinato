@@ -20,6 +20,7 @@ import { DurationPickerComponent } from './components/duration-picker/duration-p
 import { ManagerComponent } from './components/manager/manager.component';
 import { NotifyDialogContentComponent } from './components/notify-dialog-content/notify-dialog-content.component';
 import { ProofOfConceptComponent } from './components/proof-of-concept/proof-of-concept.component';
+import { DurationPipe } from './pipes/duration.pipe';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ProofOfConceptComponent } from './components/proof-of-concept/proof-of-
     DashboardComponent,
     ManagerComponent,
     DurationPickerComponent,
-    NotifyDialogContentComponent
+    NotifyDialogContentComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule,
