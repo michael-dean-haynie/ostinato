@@ -14,8 +14,8 @@ export class Reminder {
   timeoutDuration = 2;
 
   consoleNotification = true;
-  visualNotification = true;
-  audioNotification = true;
+  visualNotification = false;
+  audioNotification = false;
 
   waitForAkng = true;
   autoAkng = false;

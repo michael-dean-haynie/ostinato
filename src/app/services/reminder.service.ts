@@ -8,7 +8,27 @@ import { Reminder } from '../reminders/reminder';
 export class ReminderService {
   reminders: Reminder[] = []
 
-  constructor(private dialogService: MatDialog) { }
+  constructor(private dialogService: MatDialog) {
+    // Test data to work with
+    let reminder: Reminder;
+    reminder = this.createReminder();
+    reminder.name = 'Reminder1';
+    reminder.timeoutDuration = 10;
+    reminder.waitForAkng = true;
+    reminder.autoAkng = true;
+    reminder.autoAkngTimeoutDuration = 10;
+    this.addReminder(reminder);
+
+    reminder = this.createReminder();
+    reminder.name = 'Reminder2';
+    reminder.timeoutDuration = 5;
+    reminder.waitForAkng = false;
+    reminder.autoAkng = false;
+    // reminder.autoAkngTimeoutDuration = 10;
+    this.addReminder(reminder);
+
+    // this.reminders.forEach(rem => rem.activate());
+  }
 
   createReminder(): Reminder {
     return new Reminder(this.dialogService);

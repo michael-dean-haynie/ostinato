@@ -9,7 +9,7 @@ import { ReminderService } from 'src/app/services/reminder.service';
 export class ManagerComponent implements OnInit {
 
   myDataArray = [];
-  columnsToDisplay = ['name'];
+  columnsToDisplay = ['name', 'timeoutDuration', 'waitForAkng', 'autoAkng'];
 
   constructor(private reminderService: ReminderService) { }
 

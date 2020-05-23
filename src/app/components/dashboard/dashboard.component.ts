@@ -15,12 +15,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.newReminder = this.reminderService.createReminder();
-    this.createReminder();
-    this.createReminder();
-    this.createReminder();
-    this.createReminder();
-    this.createReminder();
-    this.reminderService.reminders.forEach(reminder => reminder.activate());
   }
 
   createReminder(): void {

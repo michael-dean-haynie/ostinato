@@ -10,11 +10,27 @@
 
     Edit or elipsis for actions
  -->
-<table mat-table [dataSource]="myDataArray">
+<table class="reminders" mat-table [dataSource]="myDataArray">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let reminder">{{reminder.name}}</td>
     </ng-container>
+
+    <ng-container matColumnDef="timeoutDuration">
+        <th mat-header-cell *matHeaderCellDef>Duration</th>
+        <td mat-cell *matCellDef="let reminder">{{reminder.timeoutDuration}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="waitForAkng">
+        <th mat-header-cell *matHeaderCellDef>Wait For Acknowledgement</th>
+        <td mat-cell *matCellDef="let reminder">{{reminder.waitForAkng ? "Yes" : ""}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="autoAkng">
+        <th mat-header-cell *matHeaderCellDef>Auto Acknowledgement</th>
+        <td mat-cell *matCellDef="let reminder">{{reminder.waitForAkng ? reminder.autoAkngTimeoutDuration : ""}}</td>
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
