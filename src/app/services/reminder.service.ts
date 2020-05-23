@@ -13,15 +13,15 @@ export class ReminderService {
     let reminder: Reminder;
     reminder = this.createReminder();
     reminder.name = 'Reminder1';
-    reminder.timeoutDuration = 10;
+    reminder.timeoutDuration = 5;
     reminder.waitForAkng = true;
     reminder.autoAkng = true;
-    reminder.autoAkngTimeoutDuration = 10;
+    reminder.autoAkngTimeoutDuration = 3;
     this.addReminder(reminder);
 
     reminder = this.createReminder();
     reminder.name = 'Reminder2';
-    reminder.timeoutDuration = 5;
+    reminder.timeoutDuration = 2;
     reminder.waitForAkng = false;
     reminder.autoAkng = false;
     // reminder.autoAkngTimeoutDuration = 10;

@@ -13,8 +13,8 @@ export class Reminder {
   name = 'Nifty Reminder!';
   timeoutDuration = 2;
 
-  consoleNotification = true;
-  visualNotification = false;
+  consoleNotification = false;
+  visualNotification = true;
   audioNotification = false;
 
   waitForAkng = true;
