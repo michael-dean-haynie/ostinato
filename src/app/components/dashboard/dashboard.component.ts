@@ -11,10 +11,14 @@ import { ReminderService } from 'src/app/services/reminder.service';
 export class DashboardComponent implements OnInit {
   newReminder: Reminder;
 
+  remindersTableData = [];
+  remindersTableColumns = ['name', 'timeoutDuration', 'waitForAkng', 'autoAkng', 'active', 'secondsSince', 'secondsLeft', 'secondsTillAutoAkng', 'config'];
+
   constructor(private reminderService: ReminderService, private dialogService: MatDialog) { }
 
   ngOnInit(): void {
     this.newReminder = this.reminderService.createReminder();
+    this.remindersTableData = this.reminderService.reminders;
   }
 
   createReminder(): void {
@@ -36,5 +40,13 @@ export class DashboardComponent implements OnInit {
 
   getRemindersAwaitingAcknowledgement(): Reminder[] {
     return this.reminderService.getRemindersAwaitingAcknowledgement();
+  }
+
+  activeToggled(reminder: Reminder): void {
+    if (reminder.isActive()) {
+      reminder.deactivate();
+    } else {
+      reminder.activate();
+    }
   }
 }
