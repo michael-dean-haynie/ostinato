@@ -1,13 +1,13 @@
-<h2>Reminder Notifications</h2>
+<h2>Notifications</h2>
 <ul class="notifications">
     <ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
         <mat-card class="notification">
             <div class="content"></div>
             <mat-card-title>{{reminder.name}}</mat-card-title>
             <mat-card-subtitle>
-                <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
+                <span>Repeats every {{reminder.timeoutDuration | duration}}</span>
                 <br>
-                <span>last Reminder was {{reminder.secondsSince}} seconds ago</span>
+                <span>Last notification was {{reminder.secondsSince | duration}} ago</span>
                 <ng-container *ngIf="reminder.autoAkng">
                     <br>
                     <span>auto-acknowledging in {{reminder.secondsTillAutoAkng}} seconds</span>
@@ -20,8 +20,8 @@
     </ng-container>
 </ul>
 
-<div class="reminders-table-heading">
-    <h2>Manage Reminders</h2>
+<div class="header-with-button">
+    <h2>Reminders</h2>
     <button (click)="createNewReminder()" mat-raised-button color="primary">Create New Reminder</button>
 </div>
 <table class="reminders" mat-table [dataSource]="remindersTableData">

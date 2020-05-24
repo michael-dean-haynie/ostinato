@@ -1,11 +1,27 @@
 @import '~@angular/material/theming';
 
+h2 {
+    font-size: 2rem;
+    margin: 1.5rem 0;
+}
+
+.header-with-button{
+    margin: 1.5rem 0 0 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+        margin: 0
+    }
+}
+
 .notifications {
     padding: 0;
-    margin: 0;
+    margin-bottom: 2rem;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(18em, 1fr));
     row-gap: 1em;
     column-gap: 1em;
 
@@ -16,8 +32,8 @@
         flex-direction: column;
         justify-content: space-between;
 
-        .content {
-
+        mat-card-title {
+            font-size: 1.5em;
         }
 
         .buttons {
@@ -29,9 +45,4 @@
 
 .reminders {
     width: 100%;
-}
-
-.reminders-table-heading {
-    display: flex;
-    justify-content: space-between;
 }
