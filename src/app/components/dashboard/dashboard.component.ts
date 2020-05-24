@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   newReminder: Reminder;
 
   remindersTableData: Observable<Reminder[]>;
-  remindersTableColumns = ['name', 'timeoutDuration', 'waitForAkng', 'autoAkng', 'active', 'secondsSince', 'secondsLeft', 'secondsTillAutoAkng', 'config'];
+  remindersTableColumns = ['name', 'active', 'timeoutDuration', 'waitForAkng', 'autoAkng', 'secondsSince', 'secondsLeft'];
 
   constructor(private reminderService: ReminderService, private dialogService: MatDialog) { }
 

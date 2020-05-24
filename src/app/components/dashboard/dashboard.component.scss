@@ -43,6 +43,39 @@ h2 {
     }
 }
 
+.reminders-container{
+    width:100%;
+    overflow: auto;
+}
+
 .reminders {
     width: 100%;
+    min-width: 50em;
+
+    th, td {
+        text-align: center;
+    }
+
+    .txt-aln-left {
+        text-align: left;
+    }
+
+    td:not(:last-child) {
+        border-right: 1px solid #e0e0e0;
+    }
+
+    .mat-table-sticky {
+        // to let slide toggle dissappear under sticky column
+        z-index: 2 !important;
+    }
+
+    .name-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        mat-icon {
+            cursor: pointer;
+        }
+    }
 }
