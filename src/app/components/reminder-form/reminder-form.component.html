@@ -1,43 +1,49 @@
-<form reminderForm="ngForm">
-    <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Ex. Stand up and stretch!" name="name" [(ngModel)]="reminder.name">
-    </mat-form-field>
-    <br>
-    <app-duration-picker [durationInSeconds]="reminder.timeoutDuration"
-        (durationInSecondsChange)="reminder.timeoutDuration = $event">
-    </app-duration-picker>
-    <br>
-    <mat-checkbox name="visualNotification" [(ngModel)]="reminder.visualNotification">Visual Notification
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="audioNotification" [(ngModel)]="reminder.audioNotification">Audio Notification
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="consoleNotification" [(ngModel)]="reminder.consoleNotification">Console Notification
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="waitForAkng" [(ngModel)]="reminder.waitForAkng">Wait For Acknowledgement
-    </mat-checkbox>
-    <br>
-    <mat-checkbox name="autoAkng" [(ngModel)]="reminder.autoAkng">Auto Acknowledge
-    </mat-checkbox>
-    <br>
-    <mat-form-field *ngIf="reminder.autoAkng">
-        <mat-label>Auto Acknowledgement Timeout Duration</mat-label>
-        <input matInput type="number" name="autoAkngTimeoutDuration" min="1"
-            [(ngModel)]="reminder.autoAkngTimeoutDuration">
-    </mat-form-field>
-    <br>
+<ng-container *ngIf="reminder.isActive()">
+    You must de-activate this reminder before you can edit it.
+</ng-container>
 
-    <div *ngIf="isNewReminder" class="buttons">
-        <button (click)="create()" mat-stroked-button color="primary">Create</button>
-        <button [mat-dialog-close] mat-stroked-button color="basic">Cancel</button>
-    </div>
+<ng-container *ngIf="!reminder.isActive()">
+    <form reminderForm="ngForm">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Ex. Stand up and stretch!" name="name" [(ngModel)]="reminder.name">
+        </mat-form-field>
+        <br>
+        <app-duration-picker [durationInSeconds]="reminder.timeoutDuration"
+            (durationInSecondsChange)="reminder.timeoutDuration = $event">
+        </app-duration-picker>
+        <br>
+        <mat-checkbox name="visualNotification" [(ngModel)]="reminder.visualNotification">Visual Notification
+        </mat-checkbox>
+        <br>
+        <mat-checkbox name="audioNotification" [(ngModel)]="reminder.audioNotification">Audio Notification
+        </mat-checkbox>
+        <br>
+        <mat-checkbox name="consoleNotification" [(ngModel)]="reminder.consoleNotification">Console Notification
+        </mat-checkbox>
+        <br>
+        <mat-checkbox name="waitForAkng" [(ngModel)]="reminder.waitForAkng">Wait For Acknowledgement
+        </mat-checkbox>
+        <br>
+        <mat-checkbox name="autoAkng" [(ngModel)]="reminder.autoAkng">Auto Acknowledge
+        </mat-checkbox>
+        <br>
+        <mat-form-field *ngIf="reminder.autoAkng">
+            <mat-label>Auto Acknowledgement Timeout Duration</mat-label>
+            <input matInput type="number" name="autoAkngTimeoutDuration" min="1"
+                [(ngModel)]="reminder.autoAkngTimeoutDuration">
+        </mat-form-field>
+        <br>
 
-    <div *ngIf="!isNewReminder" class="buttons">
-        <button (click)="delete()" mat-stroked-button color="warn">Delete</button>
-        <button [mat-dialog-close] mat-stroked-button color="primary">Close</button>
-    </div>
+        <div *ngIf="isNewReminder" class="buttons">
+            <button (click)="create()" mat-stroked-button color="primary">Create</button>
+            <button [mat-dialog-close] mat-stroked-button color="basic">Cancel</button>
+        </div>
 
-</form>
+        <div *ngIf="!isNewReminder" class="buttons">
+            <button (click)="delete()" mat-stroked-button color="warn">Delete</button>
+            <button [mat-dialog-close] mat-stroked-button color="primary">Close</button>
+        </div>
+
+    </form>
+</ng-container>

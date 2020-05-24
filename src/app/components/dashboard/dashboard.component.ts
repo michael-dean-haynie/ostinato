@@ -48,6 +48,10 @@ export class DashboardComponent implements OnInit {
     this.dialogService.open(ReminderFormComponent, { data: {} });
   }
 
+  getReminders(): Reminder[] {
+    return this.reminderService.reminders;
+  }
+
   getRemindersAwaitingAcknowledgement(): Reminder[] {
     return this.reminderService.getRemindersAwaitingAcknowledgement();
   }

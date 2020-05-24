@@ -1,5 +1,10 @@
 <h2>Notifications</h2>
-<ul class="notifications">
+
+<div *ngIf="!getRemindersAwaitingAcknowledgement().length">
+    <span>Nothing to see here!</span>
+</div>
+
+<ul *ngIf="getRemindersAwaitingAcknowledgement().length" class="notifications">
     <ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
         <mat-card class="notification">
             <div class="content"></div>
@@ -10,7 +15,7 @@
                 <span>Last notification was {{reminder.secondsSince | duration}} ago</span>
                 <ng-container *ngIf="reminder.autoAkng">
                     <br>
-                    <span>auto-acknowledging in {{reminder.secondsTillAutoAkng}} seconds</span>
+                    <span>Auto-acknowledging in {{reminder.secondsTillAutoAkng | duration}}</span>
                 </ng-container>
             </mat-card-subtitle>
             <div class="buttons">
@@ -22,10 +27,20 @@
 
 <div class="header-with-button">
     <h2>Reminders</h2>
-    <button (click)="createNewReminder()" mat-raised-button color="primary">Create New Reminder</button>
+    <button (click)="createNewReminder()" mat-raised-button color="primary">
+        <span>New Reminder</span>
+        &nbsp;
+        <mat-icon aria-hidden="false" aria-label="Configure Reminder">
+            add
+        </mat-icon>
+    </button>
 </div>
 
-<div class="reminders-container">
+<div *ngIf="!getReminders().length">
+    <span>Nothing to see here!</span>
+</div>
+
+<div *ngIf="getReminders().length" class="reminders-container">
     <table class="reminders" mat-table [dataSource]="remindersTableData">
         <ng-container matColumnDef="name" sticky>
             <th mat-header-cell *matHeaderCellDef class="txt-aln-left">Name</th>
