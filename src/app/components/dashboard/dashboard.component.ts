@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { Reminder } from 'src/app/reminders/reminder';
 import { ReminderService } from 'src/app/services/reminder.service';
+import { ReminderFormComponent } from '../reminder-form/reminder-form.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,14 +13,14 @@ import { ReminderService } from 'src/app/services/reminder.service';
 export class DashboardComponent implements OnInit {
   newReminder: Reminder;
 
-  remindersTableData = [];
+  remindersTableData: Observable<Reminder[]>;
   remindersTableColumns = ['name', 'timeoutDuration', 'waitForAkng', 'autoAkng', 'active', 'secondsSince', 'secondsLeft', 'secondsTillAutoAkng', 'config'];
 
   constructor(private reminderService: ReminderService, private dialogService: MatDialog) { }
 
   ngOnInit(): void {
     this.newReminder = this.reminderService.createReminder();
-    this.remindersTableData = this.reminderService.reminders;
+    this.remindersTableData = this.reminderService.remindersSubject.asObservable();
   }
 
   createReminder(): void {
@@ -30,23 +32,23 @@ export class DashboardComponent implements OnInit {
     this.reminderService.removeReminder(reminder);
   }
 
-  getActiveReminders(): Reminder[] {
-    return this.reminderService.getActiveReminders();
-  }
-
-  getInactiveReminders(): Reminder[] {
-    return this.reminderService.getInactiveReminders();
-  }
-
-  getRemindersAwaitingAcknowledgement(): Reminder[] {
-    return this.reminderService.getRemindersAwaitingAcknowledgement();
-  }
-
   activeToggled(reminder: Reminder): void {
     if (reminder.isActive()) {
       reminder.deactivate();
     } else {
       reminder.activate();
     }
+  }
+
+  configureReminder(reminder: Reminder): void {
+    this.dialogService.open(ReminderFormComponent, { data: { reminder } });
+  }
+
+  createNewReminder(): void {
+    this.dialogService.open(ReminderFormComponent, { data: {} });
+  }
+
+  getRemindersAwaitingAcknowledgement(): Reminder[] {
+    return this.reminderService.getRemindersAwaitingAcknowledgement();
   }
 }

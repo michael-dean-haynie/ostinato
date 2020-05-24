@@ -3,14 +3,20 @@
 .notifications {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 
     mat-card {
         flex: 1 1 auto;
-        margin: 0.5rem 1rem 0.5rem 0;
+        // margin: 0.5rem 1rem 0.5rem 0;
         @include mat-elevation(8);
     }
 }
 
 .reminders {
     width: 100%;
+}
+
+.reminders-table-heading {
+    display: flex;
+    justify-content: space-between;
 }
