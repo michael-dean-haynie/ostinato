@@ -1,25 +1,24 @@
 <h2>Reminder Notifications</h2>
-<div class="notifications">
+<ul class="notifications">
     <ng-container *ngFor="let reminder of getRemindersAwaitingAcknowledgement()">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>{{reminder.name}}</mat-card-title>
-                <mat-card-subtitle>
-                    <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
+        <mat-card class="notification">
+            <div class="content"></div>
+            <mat-card-title>{{reminder.name}}</mat-card-title>
+            <mat-card-subtitle>
+                <span>{{reminder.descriptionOfRepeatBehavior()}}</span>
+                <br>
+                <span>last Reminder was {{reminder.secondsSince}} seconds ago</span>
+                <ng-container *ngIf="reminder.autoAkng">
                     <br>
-                    <span>last Reminder was {{reminder.secondsSince}} seconds ago</span>
-                    <ng-container *ngIf="reminder.autoAkng">
-                        <br>
-                        <span>auto-acknowledging in {{reminder.secondsTillAutoAkng}} seconds</span>
-                    </ng-container>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-actions>
+                    <span>auto-acknowledging in {{reminder.secondsTillAutoAkng}} seconds</span>
+                </ng-container>
+            </mat-card-subtitle>
+            <div class="buttons">
                 <button mat-stroked-button color="basic" (click)="reminder.acknowledge()">Acknowledge</button>
-            </mat-card-actions>
+            </div>
         </mat-card>
     </ng-container>
-</div>
+</ul>
 
 <div class="reminders-table-heading">
     <h2>Manage Reminders</h2>

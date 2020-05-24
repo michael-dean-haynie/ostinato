@@ -20,6 +20,7 @@ import { DurationPickerComponent } from './components/duration-picker/duration-p
 import { ManagerComponent } from './components/manager/manager.component';
 import { NotifyDialogContentComponent } from './components/notify-dialog-content/notify-dialog-content.component';
 import { ProofOfConceptComponent } from './components/proof-of-concept/proof-of-concept.component';
+import { ReminderFormComponent } from './components/reminder-form/reminder-form.component';
 import { DurationPipe } from './pipes/duration.pipe';
 
 
@@ -31,7 +32,8 @@ import { DurationPipe } from './pipes/duration.pipe';
     ManagerComponent,
     DurationPickerComponent,
     NotifyDialogContentComponent,
-    DurationPipe
+    DurationPipe,
+    ReminderFormComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { DurationPipe } from './pipes/duration.pipe';
 
   ],
   entryComponents: [
-    NotifyDialogContentComponent
+    NotifyDialogContentComponent,
+    ReminderFormComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

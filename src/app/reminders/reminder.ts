@@ -1,6 +1,7 @@
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { NotifyDialogContentComponent } from '../components/notify-dialog-content/notify-dialog-content.component';
 import { NotifyDialogResult } from '../models/enums/notify-dialog-result.enum';
+import { VisualNotificationService } from '../services/visual-notification.service';
 
 export class Reminder {
   protected activated = false;
@@ -11,15 +12,15 @@ export class Reminder {
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
   name = 'Nifty Reminder!';
-  timeoutDuration = 2;
+  timeoutDuration = 10;
 
   consoleNotification = false;
   visualNotification = true;
   audioNotification = false;
 
   waitForAkng = true;
-  autoAkng = false;
-  autoAkngTimeoutDuration = 1000;
+  autoAkng = true;
+  autoAkngTimeoutDuration = 5;
 
   secondsLeft = 0;
   protected calcSecondsLeftIntervalId: number;
@@ -30,7 +31,7 @@ export class Reminder {
   secondsTillAutoAkng = 0;
   protected calcSecondsTillAutoAkngIntervalId: number;
 
-  constructor(protected dialogService: MatDialog) { }
+  constructor(private visualNotificationService: VisualNotificationService) { }
 
   activate(): void {
     // TODO: maybe throw exception or warning if already activated
@@ -184,27 +185,27 @@ export class Reminder {
   }
 
   protected execVisualNotification() {
-    // minimize (or just close) any open dialogs
-    this.dialogService.closeAll();
+    if (!this.visualNotificationService.visualNotificationsDisabled) {
+      // minimize (or just close) any open dialogs
+      this.visualNotificationService.dialogService.closeAll();
 
-    // open dialog
-    this.visualNotificationDialogRef = this.dialogService.open(NotifyDialogContentComponent, { data: { reminder: this } });
+      // open dialog
+      this.visualNotificationDialogRef =
+        this.visualNotificationService.dialogService.open(NotifyDialogContentComponent, { data: { reminder: this } });
 
-    // handle dialog close event
-    this.visualNotificationDialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      console.log(NotifyDialogResult.Acknowledge);
-      console.log(result === NotifyDialogResult.Acknowledge);
-      if (result === NotifyDialogResult.Acknowledge) {
-        this.acknowledge();
-      }
-    });
+      // handle dialog close event
+      this.visualNotificationDialogRef.afterClosed().subscribe((result) => {
+        if (result === NotifyDialogResult.Acknowledge) {
+          this.acknowledge();
+        }
+      });
+    }
 
     // start auto acknowledgement timeout (if configured)
     if (this.autoAkng) {
       window.setTimeout(() => {
         // check if the dialog has not yet been minimized
-        if (this.dialogService.openDialogs.some(ref => ref === this.visualNotificationDialogRef)) {
+        if (this.visualNotificationService.dialogService.openDialogs.some(ref => ref === this.visualNotificationDialogRef)) {
           this.visualNotificationDialogRef.close(NotifyDialogResult.Acknowledge);
         } else {
           this.acknowledge();
