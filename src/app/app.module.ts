@@ -17,9 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DurationPickerComponent } from './components/duration-picker/duration-picker.component';
-import { ManagerComponent } from './components/manager/manager.component';
 import { NotifyDialogContentComponent } from './components/notify-dialog-content/notify-dialog-content.component';
-import { ProofOfConceptComponent } from './components/proof-of-concept/proof-of-concept.component';
 import { ReminderFormComponent } from './components/reminder-form/reminder-form.component';
 import { DurationPipe } from './pipes/duration.pipe';
 
@@ -27,9 +25,7 @@ import { DurationPipe } from './pipes/duration.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    ProofOfConceptComponent,
     DashboardComponent,
-    ManagerComponent,
     DurationPickerComponent,
     NotifyDialogContentComponent,
     DurationPipe,
