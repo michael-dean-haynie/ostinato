@@ -77,6 +77,11 @@ export class Reminder {
   }
 
   acknowledge(): void {
+    if (!this.awaitingAcknowledgement) {
+      // Do nothing.
+      return;
+    }
+
     // TODO: Maybe throw error or warning if already false?
     this.awaitingAcknowledgement = false;
 
