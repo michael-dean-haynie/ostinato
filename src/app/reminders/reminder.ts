@@ -267,7 +267,6 @@ function persistOnChange(target: any, key: string) {
 
   // property setter - persist on change
   const setter = function (this: Reminder, newVal: any) {
-    console.log(`Set: ${key} => ${newVal}`);
     this[backingField] = newVal;
     this.persist();
   };
