@@ -8,7 +8,7 @@ const routes: Routes = [
   // empty url
   { path: '', pathMatch: 'full', redirectTo: 'poc' },
   // anything else
-  { path: '**', redirectTo: 'poc' }
+  { path: '**', redirectTo: 'dashboard' }
 ];
 
 @NgModule({
