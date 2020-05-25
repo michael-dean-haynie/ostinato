@@ -12,7 +12,7 @@ export class Reminder {
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
   name = 'Nifty Reminder!';
-  timeoutDuration = 10;
+  timeoutDuration = 5;
 
   consoleNotification = false;
   visualNotification = true;
@@ -20,7 +20,7 @@ export class Reminder {
 
   waitForAkng = true;
   autoAkng = true;
-  autoAkngTimeoutDuration = 5;
+  autoAkngTimeoutDuration = 3;
 
   secondsLeft = 0;
   protected calcSecondsLeftIntervalId: number;

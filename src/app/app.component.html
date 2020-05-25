@@ -14,12 +14,17 @@
     </mat-toolbar>
 </div>
 <div class="content">
-    <div class="content-header">
-        <mat-toolbar color="primary">
-            <h1 class="content-header__text">{{contentHeaderText}}</h1>
-        </mat-toolbar>
+    <div class="pull-up">
+        <div class="content-header">
+            <mat-toolbar color="primary">
+                <h1 class="content-header__text">{{contentHeaderText}}</h1>
+            </mat-toolbar>
+        </div>
+        <div class="content-body">
+            <router-outlet></router-outlet>
+        </div>
     </div>
-    <div class="content-body">
-        <router-outlet></router-outlet>
-    </div>
+    <footer>
+        Ostinato
+    </footer>
 </div>
