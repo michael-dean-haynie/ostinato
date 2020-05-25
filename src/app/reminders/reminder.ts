@@ -1,6 +1,8 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { NotifyDialogContentComponent } from '../components/notify-dialog-content/notify-dialog-content.component';
 import { NotifyDialogResult } from '../models/enums/notify-dialog-result.enum';
+import { PersistenceService } from '../services/persistence.service';
+import { ReminderService } from '../services/reminder.service';
 import { VisualNotificationService } from '../services/visual-notification.service';
 
 export class Reminder {
@@ -11,15 +13,23 @@ export class Reminder {
   protected lastTimeoutEnd: number;
   protected visualNotificationDialogRef: MatDialogRef<NotifyDialogContentComponent, any>;
 
+  @persistOnChange
   name = 'Nifty Reminder!';
+  @persistOnChange
   timeoutDuration = 5;
 
+  @persistOnChange
   consoleNotification = false;
+  @persistOnChange
   visualNotification = true;
+  @persistOnChange
   audioNotification = false;
 
+  @persistOnChange
   waitForAkng = true;
+  @persistOnChange
   autoAkng = true;
+  @persistOnChange
   autoAkngTimeoutDuration = 3;
 
   secondsLeft = 0;
@@ -31,7 +41,11 @@ export class Reminder {
   secondsTillAutoAkng = 0;
   protected calcSecondsTillAutoAkngIntervalId: number;
 
-  constructor(private visualNotificationService: VisualNotificationService) { }
+  constructor(
+    private reminderService: ReminderService,
+    private visualNotificationService: VisualNotificationService,
+    private persistenceService: PersistenceService,
+    public uuid) { }
 
   activate(): void {
     // TODO: maybe throw exception or warning if already activated
@@ -219,4 +233,50 @@ export class Reminder {
       }, this.autoAkngTimeoutDuration * 1000);
     }
   }
+
+  unpersist(): void {
+    this.persistenceService.unpersistReminder(this.uuid);
+  }
+
+  persist(): void {
+    const isTrackedByReminderService =
+      this.reminderService.reminders.filter(rem => rem.uuid === this.uuid).length > 0;
+    if (isTrackedByReminderService) {
+      this.persistenceService.persistReminder(this);
+    }
+  }
+
+}
+
+// decorator
+function persistOnChange(target: any, key: string) {
+  delete target[key];
+
+  const backingField = '_' + key;
+
+  Object.defineProperty(target, backingField, {
+    writable: true,
+    enumerable: true,
+    configurable: true
+  });
+
+  // property getter
+  const getter = function (this: any) {
+    return this[backingField];
+  };
+
+  // property setter - persist on change
+  const setter = function (this: Reminder, newVal: any) {
+    console.log(`Set: ${key} => ${newVal}`);
+    this[backingField] = newVal;
+    this.persist();
+  };
+
+  // Create new property with getter and setter
+  Object.defineProperty(target, key, {
+    get: getter,
+    set: setter,
+    enumerable: true,
+    configurable: true
+  });
 }

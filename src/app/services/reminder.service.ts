@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 import { Reminder } from '../reminders/reminder';
+import { PersistenceService } from './persistence.service';
 import { VisualNotificationService } from './visual-notification.service';
 
 @Injectable({
@@ -10,7 +12,13 @@ export class ReminderService {
   reminders: Reminder[] = [];
   remindersSubject = new BehaviorSubject<Reminder[]>(this.reminders);
 
-  constructor(private visualNotificationService: VisualNotificationService) {
+  constructor(
+    private visualNotificationService: VisualNotificationService,
+    private persistenceService: PersistenceService
+  ) {
+    this.initializePersistedReminders();
+
+
     // // Test data to work with
     // let reminder: Reminder;
     // reminder = this.createReminder();
@@ -69,12 +77,14 @@ export class ReminderService {
     // // reminder.autoAkngTimeoutDuration = 3;
     // this.addReminder(reminder);
 
+    // console.log(this.reminders);
+
 
     // this.reminders.forEach(rem => rem.activate());
   }
 
   createReminder(): Reminder {
-    return new Reminder(this.visualNotificationService);
+    return new Reminder(this, this.visualNotificationService, this.persistenceService, uuidv4());
   }
 
   cloneReminder(source: Reminder): Reminder {
@@ -84,6 +94,9 @@ export class ReminderService {
 
   addReminder(reminder: Reminder): void {
     this.reminders.push(reminder);
+    // persist
+    reminder.persist();
+
     this.updateRemindersSubject();
   }
 
@@ -91,6 +104,9 @@ export class ReminderService {
     reminder.deactivate();
     // should eventually be garbage collected
     this.reminders = this.reminders.filter(rem => rem !== reminder);
+    // remove from persistence
+    reminder.unpersist();
+
     this.updateRemindersSubject();
   }
 
@@ -108,5 +124,21 @@ export class ReminderService {
 
   private updateRemindersSubject(): void {
     this.remindersSubject.next(this.reminders);
+  }
+
+  protected initializePersistedReminders() {
+    this.persistenceService.loadSerializedReminders().forEach(serRem => {
+      const reminder = new Reminder(this, this.visualNotificationService, this.persistenceService, serRem.uuid);
+      reminder.name = serRem.name;
+      reminder.timeoutDuration = serRem.timeoutDuration;
+      reminder.consoleNotification = serRem.consoleNotification;
+      reminder.visualNotification = serRem.visualNotification;
+      reminder.audioNotification = serRem.audioNotification;
+      reminder.waitForAkng = serRem.waitForAkng;
+      reminder.autoAkng = serRem.autoAkng;
+      reminder.autoAkngTimeoutDuration = serRem.autoAkngTimeoutDuration;
+
+      this.addReminder(reminder);
+    });
   }
 }

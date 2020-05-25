@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   constructor(private reminderService: ReminderService, private dialogService: MatDialog) { }
 
   ngOnInit(): void {
-    this.newReminder = this.reminderService.createReminder();
+    // this.newReminder = this.reminderService.createReminder();
     this.remindersTableData = this.reminderService.remindersSubject.asObservable();
   }
 
